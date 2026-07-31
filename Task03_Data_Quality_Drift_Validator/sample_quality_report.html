@@ -1,0 +1,351 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
+                h1, h2, h3 { color: #ffffff; }
+                .container { max-width: 1200px; margin: auto; }
+                .badge { padding: 5px 10px; border-radius: 5px; font-weight: bold; color: #fff; display: inline-block; min-width: 50px; text-align: center; }
+                .PASS { background-color: #4CAF50; }
+                .WARN { background-color: #FF9800; }
+                .FAIL { background-color: #F44336; }
+                table { width: 100%; border-collapse: collapse; margin-bottom: 30px; background-color: #1e1e1e; box-shadow: 0 4px 6px rgba(0,0,0,0.3); border-radius: 8px; overflow: hidden; }
+                th, td { padding: 12px; text-align: left; border-bottom: 1px solid #333; }
+                th { background-color: #2c2c2c; }
+                tr:hover { background-color: #2a2a2a; }
+                .summary { display: flex; gap: 20px; margin-bottom: 30px; }
+                .summary-box { flex: 1; padding: 20px; background-color: #1e1e1e; border-radius: 8px; text-align: center; font-size: 24px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+                .footer { margin-top: 50px; text-align: center; color: #888; font-size: 12px; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>Data Quality & Drift Validation Report</h1>
+                
+                <div class="summary">
+                    <div class="summary-box" style="border-top: 4px solid #4CAF50;">24<br><span style="font-size:14px;color:#888;">PASS</span></div>
+                    <div class="summary-box" style="border-top: 4px solid #FF9800;">0<br><span style="font-size:14px;color:#888;">WARN</span></div>
+                    <div class="summary-box" style="border-top: 4px solid #F44336;">3<br><span style="font-size:14px;color:#888;">FAIL</span></div>
+                </div>
+
+                <h2>Validation Results</h2>
+                <table>
+                    <tr>
+                        <th>Check Name</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                        <th>Affected Records</th>
+                        <th>Recommendation</th>
+                    </tr>
+        
+                    <tr>
+                        <td>Schema Columns</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>All expected columns present.</td>
+                        <td>0 / 1462</td>
+                        <td>Update data generation if missing columns exist.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Missing Values: entity_id</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 missing (0.00%)</td>
+                        <td>0 / 1462</td>
+                        <td>Investigate data source for high missing rates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Missing Values: window_start</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 missing (0.00%)</td>
+                        <td>0 / 1462</td>
+                        <td>Investigate data source for high missing rates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Missing Values: event_count</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 missing (0.00%)</td>
+                        <td>0 / 1462</td>
+                        <td>Investigate data source for high missing rates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Missing Values: failed_login_ratio</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 missing (0.00%)</td>
+                        <td>0 / 1462</td>
+                        <td>Investigate data source for high missing rates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Missing Values: login_frequency</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 missing (0.00%)</td>
+                        <td>0 / 1462</td>
+                        <td>Investigate data source for high missing rates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Missing Values: geo_velocity</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 missing (0.00%)</td>
+                        <td>0 / 1462</td>
+                        <td>Investigate data source for high missing rates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Missing Values: session_duration_anomaly</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 missing (0.00%)</td>
+                        <td>0 / 1462</td>
+                        <td>Investigate data source for high missing rates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Missing Values: port_scan_index</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 missing (0.00%)</td>
+                        <td>0 / 1462</td>
+                        <td>Investigate data source for high missing rates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Missing Values: dns_query_entropy</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 missing (0.00%)</td>
+                        <td>0 / 1462</td>
+                        <td>Investigate data source for high missing rates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Missing Values: data_exfil_ratio</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 missing (0.00%)</td>
+                        <td>0 / 1462</td>
+                        <td>Investigate data source for high missing rates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Missing Values: privilege_escalation_score</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 missing (0.00%)</td>
+                        <td>0 / 1462</td>
+                        <td>Investigate data source for high missing rates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Missing Values: off_hours_ratio</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 missing (0.00%)</td>
+                        <td>0 / 1462</td>
+                        <td>Investigate data source for high missing rates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Missing Values: connection_burstiness</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 missing (0.00%)</td>
+                        <td>0 / 1462</td>
+                        <td>Investigate data source for high missing rates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Missing Values: generalized_ip</td>
+                        <td><span class="badge FAIL">FAIL</span></td>
+                        <td>1077 missing (73.67%)</td>
+                        <td>1077 / 1462</td>
+                        <td>Investigate data source for high missing rates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Range: failed_login_ratio</td>
+                        <td><span class="badge FAIL">FAIL</span></td>
+                        <td>684 records out of [0.0, 1.0]</td>
+                        <td>684 / 1462</td>
+                        <td>Cap outliers or review data ingestion pipeline.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Range: login_frequency</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 records out of [0.0, 100.0]</td>
+                        <td>0 / 1462</td>
+                        <td>Values within expected range.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Range: geo_velocity</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 records out of [0.0, 200000.0]</td>
+                        <td>0 / 1462</td>
+                        <td>Values within expected range.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Range: session_duration_anomaly</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 records out of [-10.0, 10.0]</td>
+                        <td>0 / 1462</td>
+                        <td>Values within expected range.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Range: port_scan_index</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 records out of [0.0, 1.0]</td>
+                        <td>0 / 1462</td>
+                        <td>Values within expected range.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Range: dns_query_entropy</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 records out of [0.0, 8.0]</td>
+                        <td>0 / 1462</td>
+                        <td>Values within expected range.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Range: data_exfil_ratio</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 records out of [0.0, 1000000.0]</td>
+                        <td>0 / 1462</td>
+                        <td>Values within expected range.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Range: privilege_escalation_score</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 records out of [0.0, 10.0]</td>
+                        <td>0 / 1462</td>
+                        <td>Values within expected range.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Range: off_hours_ratio</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 records out of [0.0, 1.0]</td>
+                        <td>0 / 1462</td>
+                        <td>Values within expected range.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Range: connection_burstiness</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 records out of [0.0, 1000.0]</td>
+                        <td>0 / 1462</td>
+                        <td>Values within expected range.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Exact Duplicates</td>
+                        <td><span class="badge PASS">PASS</span></td>
+                        <td>0 exact duplicate rows</td>
+                        <td>0 / 1462</td>
+                        <td>No exact duplicates.</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Key Duplicates (entity_id, window_start)</td>
+                        <td><span class="badge FAIL">FAIL</span></td>
+                        <td>898 duplicate keys</td>
+                        <td>898 / 1462</td>
+                        <td>Aggregate or deduplicate by key.</td>
+                    </tr>
+            
+                </table>
+                
+                <h2>Drift Analysis</h2>
+                <table>
+                    <tr>
+                        <th>Feature</th>
+                        <th>PSI Score</th>
+                        <th>KS p-value</th>
+                        <th>Drift Status</th>
+                    </tr>
+        
+                    <tr>
+                        <td>event_count</td>
+                        <td>11.7433</td>
+                        <td>1.9763e-323</td>
+                        <td><span class="badge FAIL">Significant</span></td>
+                    </tr>
+            
+                    <tr>
+                        <td>failed_login_ratio</td>
+                        <td>5.3785</td>
+                        <td>6.1573e-43</td>
+                        <td><span class="badge FAIL">Significant</span></td>
+                    </tr>
+            
+                    <tr>
+                        <td>login_frequency</td>
+                        <td>7.4260</td>
+                        <td>7.0447e-265</td>
+                        <td><span class="badge FAIL">Significant</span></td>
+                    </tr>
+            
+                    <tr>
+                        <td>geo_velocity</td>
+                        <td>8.6103</td>
+                        <td>5.8573e-243</td>
+                        <td><span class="badge FAIL">Significant</span></td>
+                    </tr>
+            
+                    <tr>
+                        <td>session_duration_anomaly</td>
+                        <td>6.8643</td>
+                        <td>8.4159e-67</td>
+                        <td><span class="badge FAIL">Significant</span></td>
+                    </tr>
+            
+                    <tr>
+                        <td>port_scan_index</td>
+                        <td>10.7676</td>
+                        <td>5.6231e-319</td>
+                        <td><span class="badge FAIL">Significant</span></td>
+                    </tr>
+            
+                    <tr>
+                        <td>dns_query_entropy</td>
+                        <td>7.2358</td>
+                        <td>2.3376e-193</td>
+                        <td><span class="badge FAIL">Significant</span></td>
+                    </tr>
+            
+                    <tr>
+                        <td>data_exfil_ratio</td>
+                        <td>9.2530</td>
+                        <td>2.0639e-303</td>
+                        <td><span class="badge FAIL">Significant</span></td>
+                    </tr>
+            
+                    <tr>
+                        <td>privilege_escalation_score</td>
+                        <td>9.8131</td>
+                        <td>1.3028e-296</td>
+                        <td><span class="badge FAIL">Significant</span></td>
+                    </tr>
+            
+                    <tr>
+                        <td>off_hours_ratio</td>
+                        <td>9.3808</td>
+                        <td>1.5382e-103</td>
+                        <td><span class="badge FAIL">Significant</span></td>
+                    </tr>
+            
+                    <tr>
+                        <td>connection_burstiness</td>
+                        <td>8.6294</td>
+                        <td>5.1854e-286</td>
+                        <td><span class="badge FAIL">Significant</span></td>
+                    </tr>
+            
+                </table>
+                <div class="footer">Generated on 2026-07-30 21:12:43</div>
+            </div>
+        </body>
+        </html>
+        
