@@ -1,0 +1,12 @@
+2026-07-18 14:31:00 alice_web corporate-vpn SUCCESS 192.168.1.100
+2026-07-18 14:31:05 bob_admin domain-controller SUCCESS 10.0.0.5
+2026-07-18 14:31:10 charlie_dev dev-workstation SUCCESS 192.168.1.105
+2026-07-18 14:31:15 attacker_user mail-server FAILURE 198.51.100.12
+2026-07-18 14:31:20 attacker_user mail-server FAILURE 198.51.100.12
+2026-07-18 14:31:25 attacker_user mail-server FAILURE 198.51.100.12
+2026-07-18 14:31:30 guest_user guest-wifi SUCCESS 172.16.50.100
+2026-07-18 14:31:35 dev_ci build-server SUCCESS 10.100.20.15
+2026-07-18 14:31:40 admin_portal web-gateway FAILURE 203.0.113.88
+2026-07-18 14:31:45 backup_agent storage-san SUCCESS 10.0.0.99
+2026-07-18 14:31:50 malformed_auth_record_missing_fields
+2026-07-18 14:31:55 admin_portal web-gateway FAILURE bad_ip_address

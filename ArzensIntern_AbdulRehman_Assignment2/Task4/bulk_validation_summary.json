@@ -1,0 +1,28 @@
+{
+  "total_records": 5971,
+  "valid_records": 5970,
+  "error_count": 1,
+  "warning_count": 2641,
+  "by_check": {
+    "Check 1: Missing Fields": {
+      "status": "PASS",
+      "issues_count": 0
+    },
+    "Check 2: IP Validation": {
+      "status": "WARNING",
+      "issues_count": 2624
+    },
+    "Check 3: Timestamp Anomalies": {
+      "status": "PASS",
+      "issues_count": 0
+    },
+    "Check 4: Duplicate Detection": {
+      "status": "PASS",
+      "issues_count": 0
+    },
+    "Check 5: Suspicious Patterns": {
+      "status": "ERROR",
+      "issues_count": 18
+    }
+  }
+}

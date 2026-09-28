@@ -1,0 +1,4 @@
+model,best_cv_f1,best_params,training_time_s
+Random Forest,0.953952459084304,"{'n_estimators': 200, 'min_samples_split': 5, 'max_depth': None, 'class_weight': 'balanced'}",776.5
+XGBoost,0.9566215756681459,"{'subsample': 0.8, 'n_estimators': 200, 'max_depth': 10, 'learning_rate': 0.1}",110.1
+Logistic Regression,0.8638483597016654,"{'class_weight': 'balanced', 'C': 1.0}",14.5

@@ -1,0 +1,16 @@
+line_number,check_type,severity,description,recommended_action
+11,Check 2: IP Validation,WARNING,Private IP address 192.168.1.100 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.
+14,Check 2: IP Validation,WARNING,Private IP address 198.51.100.12 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.
+15,Check 2: IP Validation,WARNING,Private IP address 198.51.100.12 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.
+16,Check 2: IP Validation,WARNING,Private IP address 198.51.100.12 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.
+19,Check 2: IP Validation,WARNING,Private IP address 203.0.113.88 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.
+21,Check 2: IP Validation,WARNING,Private IP address 192.168.1.100 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.
+22,Check 2: IP Validation,WARNING,Private IP address 192.168.1.101 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.
+23,Check 2: IP Validation,WARNING,Private IP address 192.168.1.102 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.
+24,Check 2: IP Validation,WARNING,Private IP address 10.0.0.5 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.
+25,Check 2: IP Validation,WARNING,Private IP address 192.168.1.105 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.
+26,Check 2: IP Validation,WARNING,Private IP address 172.16.50.100 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.
+27,Check 2: IP Validation,WARNING,Private IP address 10.100.20.15 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.
+28,Check 2: IP Validation,WARNING,Private IP address 192.168.1.110 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.
+29,Check 2: IP Validation,WARNING,Private IP address 192.168.1.100 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.
+30,Check 2: IP Validation,WARNING,Private IP address 2001:db8::1 detected in external-facing log,Investigate private IP logging in external-facing systems; check for NAT configuration issues or internal spoofing.

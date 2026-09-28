@@ -1,0 +1,12 @@
+query_time=2026-07-18T14:32:00Z|client=192.168.1.100|domain=google.com|type=A|response=142.250.190.46
+query_time=2026-07-18T14:32:05Z|client=192.168.1.101|domain=github.com|type=A|response=140.82.121.4
+query_time=2026-07-18T14:32:10Z|client=192.168.1.102|domain=suspicious.example.com|type=A|response=NXDOMAIN
+query_time=2026-07-18T14:32:15Z|client=10.0.0.5|domain=internal.local|type=AAAA|response=fe80::1
+query_time=2026-07-18T14:32:20Z|client=192.168.1.105|domain=malicious-domain.ru|type=A|response=198.51.100.22
+query_time=2026-07-18T14:32:25Z|client=172.16.50.100|domain=cloudflare.com|type=A|response=104.16.123.96
+query_time=2026-07-18T14:32:30Z|client=10.100.20.15|domain=aws.amazon.com|type=A|response=52.94.236.248
+query_time=2026-07-18T14:32:35Z|client=192.168.1.110|domain=wikipedia.org|type=A|response=208.80.154.224
+query_time=2026-07-18T14:32:40Z|client=192.168.1.100|domain=corporate.intranet|type=TXT|response="v=spf1 include:_spf.google.com ~all"
+query_time=2026-07-18T14:32:45Z|client=2001:db8::1|domain=ipv6.google.com|type=AAAA|call=2404:6800:4003:c04::64
+query_time=malformed_dns_record_no_pipes
+query_time=2026-07-18T14:32:55Z|client=bad_client_ip|domain=example.com|type=A|response=1.1.1.1

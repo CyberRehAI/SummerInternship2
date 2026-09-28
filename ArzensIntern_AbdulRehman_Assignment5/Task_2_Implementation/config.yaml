@@ -1,0 +1,48 @@
+# Isolation Forest Anomaly Detection Pipeline - Configuration
+# UNSW-NB15 Dataset - Cybersecurity Anomaly Detection
+
+data:
+  dataset_name: "UNSW-NB15"
+  train_file: "data/UNSW_NB15_training-set.csv"
+  test_file: "data/UNSW_NB15_testing-set.csv"
+  features:
+    - "dur"       # Duration
+    - "spkts"     # Source packets
+    - "dpkts"     # Destination packets
+    - "sbytes"    # Source bytes
+    - "dbytes"    # Destination bytes
+    - "rate"      # Flow rate
+  target_column: "label"        # 0 = Normal, 1 = Attack (used for evaluation)
+  attack_cat_column: "attack_cat" # Attack category (used for per-class evaluation)
+  test_size: 0.20
+  random_state: 42
+
+preprocessing:
+  scaler: "StandardScaler"
+  missing_strategy: "median"
+
+model:
+  algorithm: "IsolationForest"
+  n_estimators: 100
+  contamination: 0.1
+  max_samples: "auto"
+  bootstrap: false
+  random_state: 42
+  n_jobs: -1
+
+threshold_tuning:
+  default_threshold: 0.0
+  threshold_grid: [-0.5, -0.3, -0.1, 0.0, 0.1, 0.3]
+
+evaluation:
+  events_per_day: 10000
+  analyst_capacity_per_day: 50
+  evasion_noise_level: 0.10
+  scaling_factors: [0.9, 1.1]
+
+output:
+  artifact_dir: "model_artifacts"
+  model_file: "model_artifacts/isolation_forest_model.pkl"
+  scaler_file: "model_artifacts/standard_scaler.pkl"
+  predictions_file: "results.csv"
+  plots_dir: "model_artifacts/plots"
