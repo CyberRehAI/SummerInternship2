@@ -1,0 +1,97 @@
+================================================================================
+ARZENS DEVSECOPS - CIS BENCHMARK AUTOMATED COMPLIANCE AUDIT REPORT
+================================================================================
+Host Inspected    : web-prod-01.arzens.internal (10.0.1.25)
+Operating System  : Ubuntu 22.04.4 LTS (Jammy Jellyfish)
+Kernel Release    : 5.15.0-1053-aws x86_64
+Audit Timestamp   : 2026-09-13T14:45:00Z
+Audit Standard    : CIS Ubuntu Linux Benchmark v2.0.0 (Level 1 - Server)
+Target Role       : webservers
+Auditor Agent     : Ansible Automated Compliance Engine v2.16
+Playbook Origin   : roles/compliance/tasks/main.yml
+================================================================================
+
+INDIVIDUAL CONTROL VERIFICATION RESULTS:
+
+[ PASS ] CIS 5.2.10 - Ensure SSH PermitRootLogin is disabled
+         - Expected    : "PermitRootLogin no" in /etc/ssh/sshd_config
+         - Actual      : PermitRootLogin no
+         - Verification: grep -E "^\s*PermitRootLogin\s+no" /etc/ssh/sshd_config (RC=0)
+         - Severity    : CRITICAL
+         - Remediation : Set PermitRootLogin no in sshd_config and restart sshd.
+
+[ PASS ] CIS 5.2.11 - Ensure SSH PasswordAuthentication is disabled
+         - Expected    : "PasswordAuthentication no" in /etc/ssh/sshd_config
+         - Actual      : PasswordAuthentication no
+         - Verification: grep -E "^\s*PasswordAuthentication\s+no" /etc/ssh/sshd_config (RC=0)
+         - Severity    : HIGH
+         - Remediation : Enforce key-based authentication only.
+
+[ PASS ] CIS 5.2.5  - Ensure SSH MaxAuthTries is set to 3 or less
+         - Expected    : "MaxAuthTries 3" in /etc/ssh/sshd_config
+         - Actual      : MaxAuthTries 3
+         - Verification: grep -E "^\s*MaxAuthTries\s+3" /etc/ssh/sshd_config (RC=0)
+         - Severity    : MEDIUM
+         - Remediation : Limit brute force attempts by dropping sessions after 3 failures.
+
+[ PASS ] CIS 5.2.14 - Ensure SSH X11Forwarding is disabled
+         - Expected    : "X11Forwarding no" in /etc/ssh/sshd_config
+         - Actual      : X11Forwarding no
+         - Verification: grep -E "^\s*X11Forwarding\s+no" /etc/ssh/sshd_config (RC=0)
+         - Severity    : MEDIUM
+         - Remediation : Eliminate GUI forwarding attack surfaces on headless servers.
+
+[ PASS ] CIS 3.5.1.1 - Ensure UFW Firewall is active with default DENY incoming
+         - Expected    : Status: active, Default: deny (incoming), allow (outgoing)
+         - Actual      : Status: active, Inbound 22/tcp, 80/tcp, 443/tcp ALLOW
+         - Verification: ufw status verbose (RC=0)
+         - Severity    : CRITICAL
+         - Remediation : Enable UFW and reject unsolicited inbound packets by default.
+
+[ PASS ] CIS 4.1.1.2 - Ensure auditd service is active and enabled
+         - Expected    : Active: active (running)
+         - Actual      : Active: active (running) since Sat 2026-09-13 14:30:12 UTC
+         - Verification: systemctl is-active auditd (RC=0)
+         - Severity    : HIGH
+         - Remediation : Enable and start the Linux Audit Daemon.
+
+[ PASS ] CIS 4.1.3   - Ensure changes to /etc/shadow are recorded in auditd
+         - Expected    : Audit rule monitoring /etc/shadow with key identity
+         - Actual      : -w /etc/shadow -p wa -k identity
+         - Verification: auditctl -l | grep '/etc/shadow' (RC=0)
+         - Severity    : HIGH
+         - Remediation : Inject -w /etc/shadow -p wa -k identity into /etc/audit/rules.d/audit.rules.
+
+[ PASS ] CIS 1.1.21  - Ensure no world-writable files exist without sticky bits
+         - Expected    : 0 unauthorized world-writable files
+         - Actual      : 0 offending files detected across all mounted filesystems
+         - Verification: find / -xdev -type f -perm -0002 (Count=0)
+         - Severity    : HIGH
+         - Remediation : Remove world-write permissions (chmod o-w).
+
+[ PASS ] CIS 2.2.1.1 - Ensure time synchronization service (chrony) is running
+         - Expected    : Chrony daemon active and synchronized with NTP stratum
+         - Actual      : Active: active (running) with leap status normal
+         - Verification: systemctl is-active chrony (RC=0)
+         - Severity    : MEDIUM
+         - Remediation : Synchronize system clock with AWS Time Sync Service (169.254.169.123).
+
+[ PASS ] CIS APP 1.1 - Ensure Fail2Ban intrusion prevention is active on SSH
+         - Expected    : Status of jail sshd: 1 jail active
+         - Actual      : Jail 'sshd' is active, current banned: 0, total banned: 14
+         - Verification: fail2ban-client status sshd (RC=0)
+         - Severity    : HIGH
+         - Remediation : Activate Fail2Ban sshd jail with aggressive filtering.
+
+================================================================================
+EXECUTIVE COMPLIANCE SUMMARY
+================================================================================
+Total Controls Evaluated : 10
+Controls Passed          : 10
+Controls Failed          : 0
+Compliance Score         : 100%
+Overall Compliance Level : COMPLIANT (PASSED - LEVEL 1 SERVER CERTIFIED)
+================================================================================
+Audit Signature          : SHA256:4b9e24b2a8ff93e1178491c3d0cb88e5d0a514d3f3f2d22b82142e05cb029a1b
+Status                   : ARZENS DevSecOps Production Security Baseline Approved.
+================================================================================

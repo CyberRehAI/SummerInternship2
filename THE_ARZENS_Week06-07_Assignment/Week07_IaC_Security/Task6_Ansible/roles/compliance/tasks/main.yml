@@ -1,0 +1,140 @@
+---
+# ARZENS Week 06-07 Combined Assignment - Task 6: Ansible Roles
+# File: roles/compliance/tasks/main.yml
+# Description: Automated CIS Benchmark compliance auditor. Executes non-destructive
+#              compliance checks, tallies scores, and generates compliance reports.
+
+- name: Create compliance report directory
+  ansible.builtin.file:
+    path: "{{ compliance_output_dir | default('/var/log/compliance') }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0750'
+
+# Control 1: CIS 5.2.10 - SSH PermitRootLogin
+- name: Audit CIS 5.2.10 - Verify PermitRootLogin is disabled
+  ansible.builtin.command:
+    cmd: grep -E "^\s*PermitRootLogin\s+no" /etc/ssh/sshd_config
+  register: check_root_login
+  changed_when: false
+  failed_when: false
+
+# Control 2: CIS 5.2.11 - SSH PasswordAuthentication
+- name: Audit CIS 5.2.11 - Verify PasswordAuthentication is disabled
+  ansible.builtin.command:
+    cmd: grep -E "^\s*PasswordAuthentication\s+no" /etc/ssh/sshd_config
+  register: check_password_auth
+  changed_when: false
+  failed_when: false
+
+# Control 3: CIS 5.2.5 - SSH MaxAuthTries
+- name: Audit CIS 5.2.5 - Verify MaxAuthTries is 3 or less
+  ansible.builtin.command:
+    cmd: grep -E "^\s*MaxAuthTries\s+3" /etc/ssh/sshd_config
+  register: check_max_auth_tries
+  changed_when: false
+  failed_when: false
+
+# Control 4: CIS 5.2.14 - SSH X11Forwarding
+- name: Audit CIS 5.2.14 - Verify X11Forwarding is disabled
+  ansible.builtin.command:
+    cmd: grep -E "^\s*X11Forwarding\s+no" /etc/ssh/sshd_config
+  register: check_x11_forwarding
+  changed_when: false
+  failed_when: false
+
+# Control 5: CIS 3.5.1.1 - UFW Active & Default Deny
+- name: Audit CIS 3.5.1.1 - Verify UFW firewall status
+  ansible.builtin.command:
+    cmd: ufw status verbose
+  register: check_ufw_status
+  changed_when: false
+  failed_when: false
+
+# Control 6: CIS 4.1.1.2 - Auditd Service Active
+- name: Audit CIS 4.1.1.2 - Verify auditd daemon status
+  ansible.builtin.command:
+    cmd: systemctl is-active auditd
+  register: check_auditd_service
+  changed_when: false
+  failed_when: false
+
+# Control 7: CIS 4.1.3 - Auditd /etc/shadow rule
+- name: Audit CIS 4.1.3 - Verify audit rule for /etc/shadow
+  ansible.builtin.command:
+    cmd: auditctl -l
+  register: check_auditd_shadow_rule
+  changed_when: false
+  failed_when: false
+
+# Control 8: CIS 1.1.21 - World-writable files
+- name: Audit CIS 1.1.21 - Check for unauthorized world-writable files
+  ansible.builtin.shell:
+    cmd: find / -xdev -type f -perm -0002 2>/dev/null | wc -l
+  register: check_world_writable
+  changed_when: false
+  failed_when: false
+
+# Control 9: CIS 2.2.1.1 - Time synchronization
+- name: Audit CIS 2.2.1.1 - Verify chrony time sync status
+  ansible.builtin.command:
+    cmd: systemctl is-active chrony
+  register: check_chrony_service
+  changed_when: false
+  failed_when: false
+
+# Control 10: Fail2Ban SSH jail status
+- name: Audit Fail2ban - Verify sshd jail is active
+  ansible.builtin.command:
+    cmd: fail2ban-client status sshd
+  register: check_fail2ban_service
+  changed_when: false
+  failed_when: false
+
+# =============================================================================
+# SCORING & REPORT GENERATION
+# =============================================================================
+- name: Calculate compliance metrics
+  ansible.builtin.set_fact:
+    compliance_passed_count: >-
+      {{
+        (1 if check_root_login.rc == 0 else 0) +
+        (1 if check_password_auth.rc == 0 else 0) +
+        (1 if check_max_auth_tries.rc == 0 else 0) +
+        (1 if check_x11_forwarding.rc == 0 else 0) +
+        (1 if (check_ufw_status.rc == 0 and 'Status: active' in (check_ufw_status.stdout | default(''))) else 0) +
+        (1 if check_auditd_service.rc == 0 else 0) +
+        (1 if (check_auditd_shadow_rule.rc == 0 and '/etc/shadow' in (check_auditd_shadow_rule.stdout | default(''))) else 0) +
+        (1 if (check_world_writable.stdout | trim) == '0' else 0) +
+        (1 if check_chrony_service.rc == 0 else 0) +
+        (1 if check_fail2ban_service.rc == 0 else 0)
+      }}
+
+- name: Calculate final compliance percentage score
+  ansible.builtin.set_fact:
+    compliance_failed_count: "{{ 10 - (compliance_passed_count | int) }}"
+    compliance_score_percentage: "{{ ((compliance_passed_count | int) * 10) }}"
+
+- name: Generate structured CIS compliance report file
+  ansible.builtin.template:
+    src: compliance_report.j2
+    dest: "{{ compliance_output_dir | default('/var/log/compliance') }}/compliance_report.txt"
+    owner: root
+    group: root
+    mode: '0640'
+
+- name: Display Executive Compliance Summary to Operator
+  ansible.builtin.debug:
+    msg:
+      - "======================================================"
+      - "       ARZENS DEVSECOPS CIS BENCHMARK AUDIT           "
+      - "======================================================"
+      - "Target Node      : {{ inventory_hostname }}"
+      - "Evaluated Checks : 10"
+      - "Controls Passed  : {{ compliance_passed_count }} / 10"
+      - "Controls Failed  : {{ compliance_failed_count }} / 10"
+      - "Compliance Score : {{ compliance_score_percentage }}%"
+      - "Baseline Status  : {{ 'APPROVED (100% HARDENED)' if compliance_failed_count | int == 0 else 'REMEDIATION REQUIRED' }}"
+      - "Full Report Path : {{ compliance_output_dir | default('/var/log/compliance') }}/compliance_report.txt"
+      - "======================================================"

@@ -1,0 +1,47 @@
+# Threat Intelligence Enrichment Engine Configuration
+# ARZENS Week 06-07 Combined Assignment - Task 2
+
+api_keys:
+  # Primary API keys provided for evaluation
+  virustotal: "b00bd144c0944a07f3ae53f6854adff65f3ccec2436067f788924f8d3d977b70"
+  abuseipdb: "cefcc93b45749d487ab6f378187714b3a1ea722abf7749af5f793570f33a43470b4e60437e80d542"
+  alienvault_otx: "c0a6c7d103b2041ea702a32734ee38dde1ebc3b6b229a0e74df4beb6bc449248"
+
+  # Environment variable fallback mapping:
+  # VT_API_KEY -> api_keys.virustotal
+  # ABUSEIPDB_API_KEY -> api_keys.abuseipdb
+  # OTX_API_KEY -> api_keys.alienvault_otx
+
+rate_limits:
+  # VirusTotal free tier allows 4 requests/min (enforces 15.0s pacing between live calls)
+  virustotal_min_interval_seconds: 15.0
+  abuseipdb_max_daily_requests: 1000
+  request_timeout_seconds: 25
+  max_retries: 3
+  retry_backoff_factor: 2.0
+
+cache:
+  enabled: true
+  filepath: "cache.json"
+  ttl_hours: 24
+
+scoring:
+  weights:
+    ip:
+      virustotal: 0.35
+      abuseipdb: 0.45
+      alienvault_otx: 0.20
+    domain:
+      virustotal: 0.70
+      alienvault_otx: 0.30
+    hash:
+      virustotal: 0.75
+      alienvault_otx: 0.25
+    url:
+      virustotal: 0.70
+      alienvault_otx: 0.30
+  thresholds:
+    clean_max: 19
+    suspicious_max: 49
+    high_max: 74
+    critical_min: 75

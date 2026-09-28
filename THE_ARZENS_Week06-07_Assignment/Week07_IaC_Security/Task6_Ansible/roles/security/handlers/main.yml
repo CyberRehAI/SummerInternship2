@@ -1,0 +1,22 @@
+---
+# ARZENS Week 06-07 Combined Assignment - Task 6: Ansible Roles
+# File: roles/security/handlers/main.yml
+
+- name: restart sshd
+  ansible.builtin.service:
+    name: sshd
+    state: restarted
+
+- name: reload ufw
+  community.general.ufw:
+    state: reloaded
+
+- name: restart fail2ban
+  ansible.builtin.service:
+    name: fail2ban
+    state: restarted
+
+- name: restart auditd
+  ansible.builtin.command:
+    cmd: /sbin/service auditd restart
+  changed_when: true

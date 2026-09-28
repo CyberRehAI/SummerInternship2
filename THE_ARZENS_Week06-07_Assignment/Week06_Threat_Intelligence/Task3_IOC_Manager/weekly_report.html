@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARZENS Cyber Threat Intelligence Weekly Executive Briefing</title>
+    <style>
+        :root {
+            --bg-base: #0a0e17;
+            --bg-surface: #111827;
+            --bg-card: #1e293b;
+            --bg-card-hover: #24344d;
+            --border-color: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-cyan: #00f0ff;
+            --accent-blue: #3b82f6;
+            --color-critical: #ef4444;
+            --color-high: #f97316;
+            --color-suspicious: #eab308;
+            --color-clean: #10b981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.5;
+            padding: 30px 40px;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+        .header-title h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-title h1 span.highlight {
+            color: var(--accent-cyan);
+        }
+        .header-title p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+        .header-meta {
+            text-align: right;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .header-meta .timestamp {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* KPI Cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .metric-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-cyan);
+        }
+        .metric-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+        }
+        .metric-card.total::before { background: var(--accent-cyan); }
+        .metric-card.active::before { background: var(--accent-blue); }
+        .metric-card.critical::before { background: var(--color-critical); }
+        .metric-card.high-conf::before { background: var(--color-clean); }
+        .metric-card.expired::before { background: var(--text-muted); }
+
+        .metric-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        .metric-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 8px 0 4px 0;
+        }
+        .metric-subtext {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Visual Breakdown Grid */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .analytics-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 24px;
+        }
+        .analytics-card h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .bar-stat {
+            margin-bottom: 14px;
+        }
+        .bar-stat-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+        }
+        .stat-track {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-card);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .stat-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        /* Threat Table */
+        .table-section {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+        .table-section h2 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        th {
+            text-align: left;
+            padding: 12px 14px;
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--border-color);
+        }
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+        tr:hover td {
+            background-color: var(--bg-card-hover);
+        }
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            background: rgba(0, 240, 255, 0.08);
+            color: var(--accent-cyan);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .badge-critical { background: rgba(239, 68, 68, 0.15); color: var(--color-critical); border: 1px solid var(--color-critical); }
+        .badge-high { background: rgba(249, 115, 22, 0.15); color: var(--color-high); border: 1px solid var(--color-high); }
+        .badge-suspicious { background: rgba(234, 179, 8, 0.15); color: var(--color-suspicious); border: 1px solid var(--color-suspicious); }
+        .badge-clean { background: rgba(16, 185, 129, 0.15); color: var(--color-clean); border: 1px solid var(--color-clean); }
+        .badge-active { background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); }
+        .badge-type { background: #334155; color: #f1f5f9; }
+        .badge-tag { background: #1e293b; color: #cbd5e1; margin-right: 4px; border: 1px solid #475569; }
+
+        .score-container, .conf-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .progress-bar {
+            width: 60px;
+            height: 6px;
+            background: #334155;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill { height: 100%; border-radius: 3px; }
+        .progress-fill.critical { background: var(--color-critical); }
+        .progress-fill.high { background: var(--color-high); }
+        .progress-fill.suspicious { background: var(--color-suspicious); }
+        .progress-fill.clean { background: var(--color-clean); }
+        .progress-fill.conf { background: var(--accent-cyan); }
+
+        /* Executive Recommendations */
+        .recs-section {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 24px;
+        }
+        .recs-section h2 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: var(--accent-cyan);
+        }
+        .rec-item {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-secondary);
+        }
+        .rec-item::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-size: 0.75rem;
+            top: 2px;
+        }
+        .rec-item strong {
+            color: var(--text-primary);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-title">
+                <h1>[ARZENS] <span class="highlight">Threat Intelligence Operations</span></h1>
+                <p>Weekly Executive IOC Management, Lifecycle & Risk Briefing</p>
+            </div>
+            <div class="header-meta">
+                <div>Organization: <strong>ARZENS Cyber Defense Operations & CSIRT</strong></div>
+                <div>Briefing Timestamp: <span class="timestamp">September 13, 2026 - 14:58 UTC</span></div>
+            </div>
+        </header>
+
+        <!-- KPI Metric Cards -->
+        <section class="metrics-grid">
+            <div class="metric-card total">
+                <div class="metric-label">Total Monitored IOCs</div>
+                <div class="metric-value">13</div>
+                <div class="metric-subtext">Active lifecycle records</div>
+            </div>
+            <div class="metric-card active">
+                <div class="metric-label">Active Threat Blocklist</div>
+                <div class="metric-value">10</div>
+                <div class="metric-subtext">Propagated to perimeter SIEM</div>
+            </div>
+            <div class="metric-card critical">
+                <div class="metric-label">Critical Tier Threats</div>
+                <div class="metric-value">2</div>
+                <div class="metric-subtext">Risk score &ge; 75 / 100</div>
+            </div>
+            <div class="metric-card high-conf">
+                <div class="metric-label">High Confidence Verified</div>
+                <div class="metric-value">4</div>
+                <div class="metric-subtext">Confidence index &ge; 70%</div>
+            </div>
+            <div class="metric-card expired">
+                <div class="metric-label">Stale / Expired IOCs</div>
+                <div class="metric-value">2</div>
+                <div class="metric-subtext">Awaiting retirement or re-evaluation</div>
+            </div>
+        </section>
+
+        <!-- Analytics Breakdown -->
+        <section class="analytics-grid">
+            <div class="analytics-card">
+                <h2>Threat Type Distribution</h2>
+                <div class="bar-stat">
+                    <div class="bar-stat-label"><span>IPv4 Addresses</span><span>7</span></div>
+                    <div class="stat-track"><div class="stat-fill" style="background: var(--accent-cyan); width: 53%;"></div></div>
+                </div>
+                <div class="bar-stat">
+                    <div class="bar-stat-label"><span>Domain Names</span><span>3</span></div>
+                    <div class="stat-track"><div class="stat-fill" style="background: var(--accent-blue); width: 23%;"></div></div>
+                </div>
+                <div class="bar-stat">
+                    <div class="bar-stat-label"><span>File Hashes (SHA256/MD5)</span><span>2</span></div>
+                    <div class="stat-track"><div class="stat-fill" style="background: #a855f7; width: 15%;"></div></div>
+                </div>
+                <div class="bar-stat">
+                    <div class="bar-stat-label"><span>URLs</span><span>1</span></div>
+                    <div class="stat-track"><div class="stat-fill" style="background: #ec4899; width: 7%;"></div></div>
+                </div>
+            </div>
+
+            <div class="analytics-card">
+                <h2>Risk Severity Breakdown</h2>
+                <div class="bar-stat">
+                    <div class="bar-stat-label"><span style="color: var(--color-critical);">Critical Risk (75-100)</span><span>4</span></div>
+                    <div class="stat-track"><div class="stat-fill" style="background: var(--color-critical); width: 30%;"></div></div>
+                </div>
+                <div class="bar-stat">
+                    <div class="bar-stat-label"><span style="color: var(--color-high);">High Risk (50-74)</span><span>0</span></div>
+                    <div class="stat-track"><div class="stat-fill" style="background: var(--color-high); width: 0%;"></div></div>
+                </div>
+                <div class="bar-stat">
+                    <div class="bar-stat-label"><span style="color: var(--color-suspicious);">Suspicious (20-49)</span><span>0</span></div>
+                    <div class="stat-track"><div class="stat-fill" style="background: var(--color-suspicious); width: 0%;"></div></div>
+                </div>
+                <div class="bar-stat">
+                    <div class="bar-stat-label"><span style="color: var(--color-clean);">Clean / Whitelisted (0-19)</span><span>9</span></div>
+                    <div class="stat-track"><div class="stat-fill" style="background: var(--color-clean); width: 69%;"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Threat Table -->
+        <section class="table-section">
+            <h2>Active High-Priority Indicators of Compromise (IOC Database)</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicator</th>
+                            <th>Type</th>
+                            <th>Risk Score</th>
+                            <th>Confidence</th>
+                            <th>Lifecycle Status</th>
+                            <th>Threat Tags & Attribution</th>
+                            <th>First Seen</th>
+                            <th>Expiration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+            <tr>
+                <td class="ind-cell"><code>185.220.101.5</code></td>
+                <td><span class="badge badge-type">IPV4</span></td>
+                <td>
+                    <div class="score-container">
+                        <span class="badge badge-critical">100/100</span>
+                        <div class="progress-bar"><div class="progress-fill critical" style="width: 100%;"></div></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="conf-container">
+                        <strong>100%</strong>
+                        <div class="progress-bar"><div class="progress-fill conf" style="width: 100%;"></div></div>
+                    </div>
+                </td>
+                <td><span class="badge badge-active">ACTIVE</span></td>
+                <td><span class="badge badge-tag">http</span><span class="badge badge-tag">malicious ip</span><span class="badge badge-tag">ioc</span></td>
+                <td class="text-muted">2026-09-13</td>
+                <td class="text-muted">2026-10-13</td>
+            </tr>
+            
+            <tr>
+                <td class="ind-cell"><code>193.106.191.162</code></td>
+                <td><span class="badge badge-type">IPV4</span></td>
+                <td>
+                    <div class="score-container">
+                        <span class="badge badge-critical">95/100</span>
+                        <div class="progress-bar"><div class="progress-fill critical" style="width: 95%;"></div></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="conf-container">
+                        <strong>95%</strong>
+                        <div class="progress-bar"><div class="progress-fill conf" style="width: 95%;"></div></div>
+                    </div>
+                </td>
+                <td><span class="badge badge-active">ACTIVE</span></td>
+                <td><span class="badge badge-tag">mirai</span><span class="badge badge-tag">brute-force</span><span class="badge badge-tag">botnet</span></td>
+                <td class="text-muted">2026-09-05</td>
+                <td class="text-muted">2026-10-13</td>
+            </tr>
+            
+            <tr>
+                <td class="ind-cell"><code>malware-traffic-analysis.net</code></td>
+                <td><span class="badge badge-type">DOMAIN</span></td>
+                <td>
+                    <div class="score-container">
+                        <span class="badge badge-clean">11/100</span>
+                        <div class="progress-bar"><div class="progress-fill clean" style="width: 11%;"></div></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="conf-container">
+                        <strong>65%</strong>
+                        <div class="progress-bar"><div class="progress-fill conf" style="width: 65%;"></div></div>
+                    </div>
+                </td>
+                <td><span class="badge badge-active">ACTIVE</span></td>
+                <td><span class="badge badge-tag">av detections</span><span class="badge badge-tag">analysis date</span><span class="badge badge-tag">all octoseek</span></td>
+                <td class="text-muted">2026-09-13</td>
+                <td class="text-muted">2026-11-12</td>
+            </tr>
+            
+            <tr>
+                <td class="ind-cell"><code>194.26.29.42</code></td>
+                <td><span class="badge badge-type">IPV4</span></td>
+                <td>
+                    <div class="score-container">
+                        <span class="badge badge-clean">3/100</span>
+                        <div class="progress-bar"><div class="progress-fill clean" style="width: 3%;"></div></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="conf-container">
+                        <strong>60%</strong>
+                        <div class="progress-bar"><div class="progress-fill conf" style="width: 60%;"></div></div>
+                    </div>
+                </td>
+                <td><span class="badge badge-active">ACTIVE</span></td>
+                <td><span class="text-muted">-</span></td>
+                <td class="text-muted">2026-09-13</td>
+                <td class="text-muted">2026-10-13</td>
+            </tr>
+            
+            <tr>
+                <td class="ind-cell"><code>8.8.8.8</code></td>
+                <td><span class="badge badge-type">IPV4</span></td>
+                <td>
+                    <div class="score-container">
+                        <span class="badge badge-clean">0/100</span>
+                        <div class="progress-bar"><div class="progress-fill clean" style="width: 0%;"></div></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="conf-container">
+                        <strong>95%</strong>
+                        <div class="progress-bar"><div class="progress-fill conf" style="width: 95%;"></div></div>
+                    </div>
+                </td>
+                <td><span class="badge badge-active">ACTIVE</span></td>
+                <td><span class="badge badge-tag">suspicious-udp</span></td>
+                <td class="text-muted">2026-09-13</td>
+                <td class="text-muted">2026-10-13</td>
+            </tr>
+            
+            <tr>
+                <td class="ind-cell"><code>1.1.1.1</code></td>
+                <td><span class="badge badge-type">IPV4</span></td>
+                <td>
+                    <div class="score-container">
+                        <span class="badge badge-clean">0/100</span>
+                        <div class="progress-bar"><div class="progress-fill clean" style="width: 0%;"></div></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="conf-container">
+                        <strong>95%</strong>
+                        <div class="progress-bar"><div class="progress-fill conf" style="width: 95%;"></div></div>
+                    </div>
+                </td>
+                <td><span class="badge badge-active">ACTIVE</span></td>
+                <td><span class="badge badge-tag">suspicious-udp</span></td>
+                <td class="text-muted">2026-09-13</td>
+                <td class="text-muted">2026-10-13</td>
+            </tr>
+            
+            <tr>
+                <td class="ind-cell"><code>http://testphp.vulnweb.com/login.php</code></td>
+                <td><span class="badge badge-type">URL</span></td>
+                <td>
+                    <div class="score-container">
+                        <span class="badge badge-clean">0/100</span>
+                        <div class="progress-bar"><div class="progress-fill clean" style="width: 0%;"></div></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="conf-container">
+                        <strong>50%</strong>
+                        <div class="progress-bar"><div class="progress-fill conf" style="width: 50%;"></div></div>
+                    </div>
+                </td>
+                <td><span class="badge badge-active">ACTIVE</span></td>
+                <td><span class="text-muted">-</span></td>
+                <td class="text-muted">2026-09-13</td>
+                <td class="text-muted">2026-10-13</td>
+            </tr>
+            
+            <tr>
+                <td class="ind-cell"><code>facial-recognition.top</code></td>
+                <td><span class="badge badge-type">DOMAIN</span></td>
+                <td>
+                    <div class="score-container">
+                        <span class="badge badge-clean">0/100</span>
+                        <div class="progress-bar"><div class="progress-fill clean" style="width: 0%;"></div></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="conf-container">
+                        <strong>35%</strong>
+                        <div class="progress-bar"><div class="progress-fill conf" style="width: 35%;"></div></div>
+                    </div>
+                </td>
+                <td><span class="badge badge-active">ACTIVE</span></td>
+                <td><span class="text-muted">-</span></td>
+                <td class="text-muted">2026-09-13</td>
+                <td class="text-muted">2026-11-12</td>
+            </tr>
+            
+            <tr>
+                <td class="ind-cell"><code>ed01ef2632ff6357e08b1516f00717344e3e5eefbc7a78b1014fed8371cc4b4b</code></td>
+                <td><span class="badge badge-type">HASH</span></td>
+                <td>
+                    <div class="score-container">
+                        <span class="badge badge-clean">0/100</span>
+                        <div class="progress-bar"><div class="progress-fill clean" style="width: 0%;"></div></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="conf-container">
+                        <strong>35%</strong>
+                        <div class="progress-bar"><div class="progress-fill conf" style="width: 35%;"></div></div>
+                    </div>
+                </td>
+                <td><span class="badge badge-active">ACTIVE</span></td>
+                <td><span class="text-muted">-</span></td>
+                <td class="text-muted">2026-09-13</td>
+                <td class="text-muted">2027-03-12</td>
+            </tr>
+            
+            <tr>
+                <td class="ind-cell"><code>c0202cf6aeab8437a60d3eb757ddff32</code></td>
+                <td><span class="badge badge-type">HASH</span></td>
+                <td>
+                    <div class="score-container">
+                        <span class="badge badge-clean">0/100</span>
+                        <div class="progress-bar"><div class="progress-fill clean" style="width: 0%;"></div></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="conf-container">
+                        <strong>35%</strong>
+                        <div class="progress-bar"><div class="progress-fill conf" style="width: 35%;"></div></div>
+                    </div>
+                </td>
+                <td><span class="badge badge-active">ACTIVE</span></td>
+                <td><span class="text-muted">-</span></td>
+                <td class="text-muted">2026-09-13</td>
+                <td class="text-muted">2027-03-12</td>
+            </tr>
+            
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Executive Recommendations -->
+        <section class="recs-section">
+            <h2>SOC & Incident Response Directives</h2>
+            <div class="rec-item">
+                <strong>Perimeter Firewall Sync:</strong> Actively synchronize <code>blocklist.txt</code> with border BGP null-route and perimeter firewall ACLs to immediately drop scanning and brute-force traffic.
+            </div>
+            <div class="rec-item">
+                <strong>Suricata Rule Deployment:</strong> Ingest the exported Suricata IDS rules across internal sensor taps to detect lateral malware communication and DNS tunneling.
+            </div>
+            <div class="rec-item">
+                <strong>Stale IOC Retirement:</strong> Run automated <code>--expire-check</code> weekly to purge decommissioned C2 IPs and eliminate firewall memory bloat and false positive alerts.
+            </div>
+            <div class="rec-item">
+                <strong>Whitelisted Exceptions:</strong> Verify that enterprise resolvers (Google DNS <code>8.8.8.8</code> and Cloudflare <code>1.1.1.1</code>) remain marked clean with zero risk to maintain network uptime.
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 ARZENS Cyber Defense Operations & CSIRT &bull; ARZENS Advanced Track &bull; Automated Threat Intelligence Lifecycle Management System</p>
+        </footer>
+    </div>
+</body>
+</html>

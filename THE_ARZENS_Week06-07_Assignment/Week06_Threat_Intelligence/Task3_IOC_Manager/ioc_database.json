@@ -1,0 +1,828 @@
+{
+  "database_metadata": {
+    "version": "1.0",
+    "created_at": "2026-09-13T14:56:28.642216+00:00",
+    "last_updated": "2026-09-13T14:58:15.352909+00:00",
+    "total_records": 13,
+    "active_records": 10,
+    "expired_records": 2,
+    "revoked_records": 1
+  },
+  "indicators": {
+    "185.220.101.5": {
+      "indicator": "185.220.101.5",
+      "type": "ipv4",
+      "first_seen": "2026-09-13T14:56:28.668981+00:00",
+      "last_seen": "2026-09-13T14:57:45.688730+00:00",
+      "expiration": "2026-10-13T14:57:45.688730+00:00",
+      "confidence": 100,
+      "risk_score": 100,
+      "risk_tier": "CRITICAL",
+      "status": "active",
+      "sources": [
+        "alienvault_otx",
+        "virustotal",
+        "abuseipdb"
+      ],
+      "tags": [
+        "http",
+        "malicious ip",
+        "ioc",
+        "nextray",
+        "cyber security",
+        "robot",
+        "malicious",
+        "phishing",
+        "honeypot",
+        "blacklist"
+      ],
+      "enrichment_data": {
+        "virustotal": {
+          "status": "success",
+          "malicious": 12,
+          "suspicious": 3,
+          "harmless": 46,
+          "undetected": 28,
+          "total_engines": 89,
+          "reputation": 19,
+          "tags": [
+            "suspicious-udp",
+            "tor",
+            "self-signed"
+          ],
+          "owner": "Stiftung Erneuerbare Freiheit"
+        },
+        "abuseipdb": {
+          "status": "success",
+          "score": 100,
+          "total_reports": 281,
+          "is_whitelisted": false,
+          "country": "DE",
+          "isp": "Artikel10 e.V.",
+          "usage_type": "Fixed Line ISP",
+          "domain": "artikel10.org",
+          "last_reported_at": "2026-09-13T12:44:18+00:00"
+        },
+        "alienvault_otx": {
+          "status": "success",
+          "pulse_count": 50,
+          "pulses_analyzed": 50,
+          "tags": [
+            "blacklist",
+            "cyber security",
+            "honeypot",
+            "http",
+            "ioc",
+            "malicious",
+            "malicious ip",
+            "nextray",
+            "phishing",
+            "robot"
+          ],
+          "adversaries": [],
+          "malware_families": []
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-09-13T14:56:28.668981+00:00",
+          "action": "created",
+          "risk_score": 100,
+          "confidence": 100
+        },
+        {
+          "timestamp": "2026-09-13T14:57:45.688730+00:00",
+          "action": "re-enriched",
+          "risk_score": 100,
+          "confidence": 100
+        }
+      ],
+      "confidence_breakdown": {
+        "diversity_points": 35,
+        "stability_points": 40,
+        "recency_points": 25,
+        "total_confidence": 100
+      }
+    },
+    "8.8.8.8": {
+      "indicator": "8.8.8.8",
+      "type": "ipv4",
+      "first_seen": "2026-09-13T14:56:28.670265+00:00",
+      "last_seen": "2026-09-13T14:57:45.692054+00:00",
+      "expiration": "2026-10-13T14:57:45.692054+00:00",
+      "confidence": 95,
+      "risk_score": 0,
+      "risk_tier": "CLEAN",
+      "status": "active",
+      "sources": [
+        "alienvault_otx",
+        "virustotal",
+        "abuseipdb"
+      ],
+      "tags": [
+        "suspicious-udp"
+      ],
+      "enrichment_data": {
+        "virustotal": {
+          "status": "success",
+          "malicious": 0,
+          "suspicious": 0,
+          "harmless": 52,
+          "undetected": 37,
+          "total_engines": 89,
+          "reputation": 560,
+          "tags": [
+            "suspicious-udp"
+          ],
+          "owner": "Google LLC"
+        },
+        "abuseipdb": {
+          "status": "success",
+          "score": 0,
+          "total_reports": 200,
+          "is_whitelisted": true,
+          "country": "US",
+          "isp": "Google LLC",
+          "usage_type": "Content Delivery Network",
+          "domain": "google.com",
+          "last_reported_at": "2026-09-11T21:32:41+00:00"
+        },
+        "alienvault_otx": {
+          "status": "success",
+          "pulse_count": 0,
+          "pulses_analyzed": 0,
+          "tags": [],
+          "adversaries": [],
+          "malware_families": []
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-09-13T14:56:28.670265+00:00",
+          "action": "created",
+          "risk_score": 0,
+          "confidence": 95
+        },
+        {
+          "timestamp": "2026-09-13T14:57:45.692054+00:00",
+          "action": "re-enriched",
+          "risk_score": 0,
+          "confidence": 95
+        }
+      ],
+      "confidence_breakdown": {
+        "diversity_points": 35,
+        "stability_points": 35,
+        "recency_points": 25,
+        "total_confidence": 95
+      }
+    },
+    "194.26.29.42": {
+      "indicator": "194.26.29.42",
+      "type": "ipv4",
+      "first_seen": "2026-09-13T14:56:28.672306+00:00",
+      "last_seen": "2026-09-13T14:57:45.694322+00:00",
+      "expiration": "2026-10-13T14:57:45.694322+00:00",
+      "confidence": 60,
+      "risk_score": 3,
+      "risk_tier": "CLEAN",
+      "status": "active",
+      "sources": [
+        "alienvault_otx",
+        "virustotal",
+        "abuseipdb"
+      ],
+      "tags": [],
+      "enrichment_data": {
+        "virustotal": {
+          "status": "success",
+          "malicious": 0,
+          "suspicious": 2,
+          "harmless": 53,
+          "undetected": 34,
+          "total_engines": 89,
+          "reputation": 0,
+          "tags": [],
+          "owner": "N/A"
+        },
+        "abuseipdb": {
+          "status": "success",
+          "score": 0,
+          "total_reports": 0,
+          "is_whitelisted": false,
+          "country": "RU",
+          "isp": "Media Land LLC",
+          "usage_type": "Data Center/Web Hosting/Transit",
+          "domain": "ml.cloud",
+          "last_reported_at": "2025-05-17T23:59:09+00:00"
+        },
+        "alienvault_otx": {
+          "status": "success",
+          "pulse_count": 0,
+          "pulses_analyzed": 0,
+          "tags": [],
+          "adversaries": [],
+          "malware_families": []
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-09-13T14:56:28.672306+00:00",
+          "action": "created",
+          "risk_score": 3,
+          "confidence": 60
+        },
+        {
+          "timestamp": "2026-09-13T14:57:45.694322+00:00",
+          "action": "re-enriched",
+          "risk_score": 3,
+          "confidence": 60
+        }
+      ],
+      "confidence_breakdown": {
+        "diversity_points": 35,
+        "stability_points": 0,
+        "recency_points": 25,
+        "total_confidence": 60
+      }
+    },
+    "1.1.1.1": {
+      "indicator": "1.1.1.1",
+      "type": "ipv4",
+      "first_seen": "2026-09-13T14:56:28.672908+00:00",
+      "last_seen": "2026-09-13T14:57:45.696568+00:00",
+      "expiration": "2026-10-13T14:57:45.696568+00:00",
+      "confidence": 95,
+      "risk_score": 0,
+      "risk_tier": "CLEAN",
+      "status": "active",
+      "sources": [
+        "alienvault_otx",
+        "virustotal",
+        "abuseipdb"
+      ],
+      "tags": [
+        "suspicious-udp"
+      ],
+      "enrichment_data": {
+        "virustotal": {
+          "status": "success",
+          "malicious": 0,
+          "suspicious": 0,
+          "harmless": 55,
+          "undetected": 34,
+          "total_engines": 89,
+          "reputation": 114,
+          "tags": [
+            "suspicious-udp"
+          ],
+          "owner": "Cloudflare, Inc."
+        },
+        "abuseipdb": {
+          "status": "success",
+          "score": 0,
+          "total_reports": 28,
+          "is_whitelisted": true,
+          "country": "AU",
+          "isp": "APNIC and Cloudflare DNS Resolver project",
+          "usage_type": "Content Delivery Network",
+          "domain": "cloudflare.com",
+          "last_reported_at": "2026-09-13T04:21:01+00:00"
+        },
+        "alienvault_otx": {
+          "status": "success",
+          "pulse_count": 0,
+          "pulses_analyzed": 0,
+          "tags": [],
+          "adversaries": [],
+          "malware_families": []
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-09-13T14:56:28.672908+00:00",
+          "action": "created",
+          "risk_score": 0,
+          "confidence": 95
+        },
+        {
+          "timestamp": "2026-09-13T14:57:45.696568+00:00",
+          "action": "re-enriched",
+          "risk_score": 0,
+          "confidence": 95
+        }
+      ],
+      "confidence_breakdown": {
+        "diversity_points": 35,
+        "stability_points": 35,
+        "recency_points": 25,
+        "total_confidence": 95
+      }
+    },
+    "malware-traffic-analysis.net": {
+      "indicator": "malware-traffic-analysis.net",
+      "type": "domain",
+      "first_seen": "2026-09-13T14:56:28.675685+00:00",
+      "last_seen": "2026-09-13T14:57:45.699817+00:00",
+      "expiration": "2026-11-12T14:57:45.699817+00:00",
+      "confidence": 65,
+      "risk_score": 11,
+      "risk_tier": "CLEAN",
+      "status": "active",
+      "sources": [
+        "alienvault_otx",
+        "virustotal"
+      ],
+      "tags": [
+        "av detections",
+        "analysis date",
+        "all octoseek",
+        "aurora stealer",
+        "all search",
+        "abuse contact",
+        "alerts",
+        "active threat",
+        "bat",
+        "ap e06eke4"
+      ],
+      "enrichment_data": {
+        "virustotal": {
+          "status": "success",
+          "malicious": 0,
+          "suspicious": 0,
+          "harmless": 55,
+          "undetected": 34,
+          "total_engines": 89,
+          "reputation": 1,
+          "tags": [],
+          "owner": "N/A"
+        },
+        "abuseipdb": {
+          "status": "n_a",
+          "reason": "AbuseIPDB only supports IP indicators",
+          "score": 0,
+          "total_reports": 0,
+          "is_whitelisted": false
+        },
+        "alienvault_otx": {
+          "status": "success",
+          "pulse_count": 3,
+          "pulses_analyzed": 3,
+          "tags": [
+            "abuse contact",
+            "active threat",
+            "alerts",
+            "all octoseek",
+            "all search",
+            "analysis date",
+            "ap e06eke4",
+            "aurora stealer",
+            "av detections",
+            "bat"
+          ],
+          "adversaries": [],
+          "malware_families": [
+            "{'id': 'Antiy-AVL Trojan[Downloader]/Win32.Betload', 'display_name': 'Antiy-AVL Trojan[Downloader]/Win32.Betload', 'target': None}",
+            "{'id': 'Emotet', 'display_name': 'Emotet', 'target': None}",
+            "{'id': 'Mirai', 'display_name': 'Mirai', 'target': None}",
+            "{'id': 'Other:Malware-gen\\\\ [Trj]', 'display_name': 'Other:Malware-gen\\\\ [Trj]', 'target': None}",
+            "{'id': 'Ransom:Win32/Pottieq', 'display_name': 'Ransom:Win32/Pottieq', 'target': '/malware/Ransom:Win32/Pottieq'}"
+          ]
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-09-13T14:56:28.675685+00:00",
+          "action": "created",
+          "risk_score": 11,
+          "confidence": 65
+        },
+        {
+          "timestamp": "2026-09-13T14:57:45.699817+00:00",
+          "action": "re-enriched",
+          "risk_score": 11,
+          "confidence": 65
+        }
+      ],
+      "confidence_breakdown": {
+        "diversity_points": 25,
+        "stability_points": 15,
+        "recency_points": 25,
+        "total_confidence": 65
+      }
+    },
+    "facial-recognition.top": {
+      "indicator": "facial-recognition.top",
+      "type": "domain",
+      "first_seen": "2026-09-13T14:56:28.677195+00:00",
+      "last_seen": "2026-09-13T14:57:45.703176+00:00",
+      "expiration": "2026-11-12T14:57:45.703176+00:00",
+      "confidence": 35,
+      "risk_score": 0,
+      "risk_tier": "CLEAN",
+      "status": "active",
+      "sources": [
+        "alienvault_otx"
+      ],
+      "tags": [],
+      "enrichment_data": {
+        "virustotal": {
+          "status": "not_found",
+          "malicious": 0,
+          "suspicious": 0,
+          "harmless": 0,
+          "undetected": 0,
+          "total_engines": 0,
+          "reputation": 0,
+          "tags": [],
+          "message": "Indicator not cataloged in VirusTotal"
+        },
+        "abuseipdb": {
+          "status": "n_a",
+          "reason": "AbuseIPDB only supports IP indicators",
+          "score": 0,
+          "total_reports": 0,
+          "is_whitelisted": false
+        },
+        "alienvault_otx": {
+          "status": "success",
+          "pulse_count": 0,
+          "pulses_analyzed": 0,
+          "tags": [],
+          "adversaries": [],
+          "malware_families": []
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-09-13T14:56:28.677195+00:00",
+          "action": "created",
+          "risk_score": 0,
+          "confidence": 35
+        },
+        {
+          "timestamp": "2026-09-13T14:57:45.703176+00:00",
+          "action": "re-enriched",
+          "risk_score": 0,
+          "confidence": 35
+        }
+      ],
+      "confidence_breakdown": {
+        "diversity_points": 10,
+        "stability_points": 0,
+        "recency_points": 25,
+        "total_confidence": 35
+      }
+    },
+    "ed01ef2632ff6357e08b1516f00717344e3e5eefbc7a78b1014fed8371cc4b4b": {
+      "indicator": "ed01ef2632ff6357e08b1516f00717344e3e5eefbc7a78b1014fed8371cc4b4b",
+      "type": "hash",
+      "first_seen": "2026-09-13T14:56:28.679670+00:00",
+      "last_seen": "2026-09-13T14:57:45.708103+00:00",
+      "expiration": "2027-03-12T14:57:45.708103+00:00",
+      "confidence": 35,
+      "risk_score": 0,
+      "risk_tier": "CLEAN",
+      "status": "active",
+      "sources": [
+        "alienvault_otx"
+      ],
+      "tags": [],
+      "enrichment_data": {
+        "virustotal": {
+          "status": "not_found",
+          "malicious": 0,
+          "suspicious": 0,
+          "harmless": 0,
+          "undetected": 0,
+          "total_engines": 0,
+          "reputation": 0,
+          "tags": [],
+          "message": "Indicator not cataloged in VirusTotal"
+        },
+        "abuseipdb": {
+          "status": "n_a",
+          "reason": "AbuseIPDB only supports IP indicators",
+          "score": 0,
+          "total_reports": 0,
+          "is_whitelisted": false
+        },
+        "alienvault_otx": {
+          "status": "success",
+          "pulse_count": 0,
+          "pulses_analyzed": 0,
+          "tags": [],
+          "adversaries": [],
+          "malware_families": []
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-09-13T14:56:28.679670+00:00",
+          "action": "created",
+          "risk_score": 0,
+          "confidence": 35
+        },
+        {
+          "timestamp": "2026-09-13T14:57:45.708103+00:00",
+          "action": "re-enriched",
+          "risk_score": 0,
+          "confidence": 35
+        }
+      ],
+      "confidence_breakdown": {
+        "diversity_points": 10,
+        "stability_points": 0,
+        "recency_points": 25,
+        "total_confidence": 35
+      }
+    },
+    "c0202cf6aeab8437a60d3eb757ddff32": {
+      "indicator": "c0202cf6aeab8437a60d3eb757ddff32",
+      "type": "hash",
+      "first_seen": "2026-09-13T14:56:28.682117+00:00",
+      "last_seen": "2026-09-13T14:57:45.710954+00:00",
+      "expiration": "2027-03-12T14:57:45.710954+00:00",
+      "confidence": 35,
+      "risk_score": 0,
+      "risk_tier": "CLEAN",
+      "status": "active",
+      "sources": [
+        "alienvault_otx"
+      ],
+      "tags": [],
+      "enrichment_data": {
+        "virustotal": {
+          "status": "not_found",
+          "malicious": 0,
+          "suspicious": 0,
+          "harmless": 0,
+          "undetected": 0,
+          "total_engines": 0,
+          "reputation": 0,
+          "tags": [],
+          "message": "Indicator not cataloged in VirusTotal"
+        },
+        "abuseipdb": {
+          "status": "n_a",
+          "reason": "AbuseIPDB only supports IP indicators",
+          "score": 0,
+          "total_reports": 0,
+          "is_whitelisted": false
+        },
+        "alienvault_otx": {
+          "status": "success",
+          "pulse_count": 0,
+          "pulses_analyzed": 0,
+          "tags": [],
+          "adversaries": [],
+          "malware_families": []
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-09-13T14:56:28.682117+00:00",
+          "action": "created",
+          "risk_score": 0,
+          "confidence": 35
+        },
+        {
+          "timestamp": "2026-09-13T14:57:45.710954+00:00",
+          "action": "re-enriched",
+          "risk_score": 0,
+          "confidence": 35
+        }
+      ],
+      "confidence_breakdown": {
+        "diversity_points": 10,
+        "stability_points": 0,
+        "recency_points": 25,
+        "total_confidence": 35
+      }
+    },
+    "http://testphp.vulnweb.com/login.php": {
+      "indicator": "http://testphp.vulnweb.com/login.php",
+      "type": "url",
+      "first_seen": "2026-09-13T14:56:28.696725+00:00",
+      "last_seen": "2026-09-13T14:57:45.713805+00:00",
+      "expiration": "2026-10-13T14:57:45.713805+00:00",
+      "confidence": 50,
+      "risk_score": 0,
+      "risk_tier": "CLEAN",
+      "status": "active",
+      "sources": [
+        "alienvault_otx",
+        "virustotal"
+      ],
+      "tags": [],
+      "enrichment_data": {
+        "virustotal": {
+          "status": "success",
+          "malicious": 0,
+          "suspicious": 0,
+          "harmless": 57,
+          "undetected": 33,
+          "total_engines": 90,
+          "reputation": 0,
+          "tags": [],
+          "owner": "N/A"
+        },
+        "abuseipdb": {
+          "status": "n_a",
+          "reason": "AbuseIPDB only supports IP indicators",
+          "score": 0,
+          "total_reports": 0,
+          "is_whitelisted": false
+        },
+        "alienvault_otx": {
+          "status": "success",
+          "pulse_count": 0,
+          "pulses_analyzed": 0,
+          "tags": [],
+          "adversaries": [],
+          "malware_families": []
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-09-13T14:56:28.696725+00:00",
+          "action": "created",
+          "risk_score": 0,
+          "confidence": 50
+        },
+        {
+          "timestamp": "2026-09-13T14:57:45.713805+00:00",
+          "action": "re-enriched",
+          "risk_score": 0,
+          "confidence": 50
+        }
+      ],
+      "confidence_breakdown": {
+        "diversity_points": 25,
+        "stability_points": 0,
+        "recency_points": 25,
+        "total_confidence": 50
+      }
+    },
+    "45.148.10.12": {
+      "indicator": "45.148.10.12",
+      "type": "ipv4",
+      "first_seen": "2026-06-01T10:00:00+00:00",
+      "last_seen": "2026-07-01T10:00:00+00:00",
+      "expiration": "2026-08-01T10:00:00+00:00",
+      "confidence": 65,
+      "risk_score": 85,
+      "risk_tier": "CRITICAL",
+      "status": "expired",
+      "sources": [
+        "virustotal",
+        "abuseipdb",
+        "alienvault_otx"
+      ],
+      "tags": [
+        "cobalt-strike",
+        "c2",
+        "ransomware"
+      ],
+      "enrichment_data": {
+        "virustotal": {
+          "status": "success",
+          "malicious": 18
+        },
+        "abuseipdb": {
+          "status": "success",
+          "score": 80
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-06-01T10:00:00+00:00",
+          "action": "created",
+          "risk_score": 85,
+          "confidence": 65
+        },
+        {
+          "timestamp": "2026-09-13T14:58:15.347136+00:00",
+          "action": "expired_due_to_ttl",
+          "note": "Expired at 2026-08-01T10:00:00+00:00"
+        }
+      ]
+    },
+    "phishing-bank-portal.xyz": {
+      "indicator": "phishing-bank-portal.xyz",
+      "type": "domain",
+      "first_seen": "2026-05-10T12:00:00+00:00",
+      "last_seen": "2026-06-10T12:00:00+00:00",
+      "expiration": "2026-08-10T12:00:00+00:00",
+      "confidence": 70,
+      "risk_score": 90,
+      "risk_tier": "CRITICAL",
+      "status": "expired",
+      "sources": [
+        "virustotal",
+        "alienvault_otx"
+      ],
+      "tags": [
+        "phishing",
+        "credential-harvesting"
+      ],
+      "enrichment_data": {
+        "virustotal": {
+          "status": "success",
+          "malicious": 14
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-05-10T12:00:00+00:00",
+          "action": "created",
+          "risk_score": 90,
+          "confidence": 70
+        },
+        {
+          "timestamp": "2026-09-13T14:58:15.347136+00:00",
+          "action": "expired_due_to_ttl",
+          "note": "Expired at 2026-08-10T12:00:00+00:00"
+        }
+      ]
+    },
+    "93.184.216.34": {
+      "indicator": "93.184.216.34",
+      "type": "ipv4",
+      "first_seen": "2026-07-01T10:00:00+00:00",
+      "last_seen": "2026-07-02T10:00:00+00:00",
+      "expiration": "2026-10-01T10:00:00+00:00",
+      "confidence": 90,
+      "risk_score": 0,
+      "risk_tier": "CLEAN",
+      "status": "revoked",
+      "sources": [
+        "virustotal",
+        "abuseipdb"
+      ],
+      "tags": [
+        "false-positive",
+        "cdn",
+        "example-com"
+      ],
+      "enrichment_data": {
+        "virustotal": {
+          "status": "success",
+          "malicious": 0
+        },
+        "abuseipdb": {
+          "status": "success",
+          "is_whitelisted": true
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-07-01T10:00:00+00:00",
+          "action": "created",
+          "risk_score": 0,
+          "confidence": 90
+        }
+      ]
+    },
+    "193.106.191.162": {
+      "indicator": "193.106.191.162",
+      "type": "ipv4",
+      "first_seen": "2026-09-05T10:00:00+00:00",
+      "last_seen": "2026-09-13T19:00:00+00:00",
+      "expiration": "2026-10-13T19:00:00+00:00",
+      "confidence": 95,
+      "risk_score": 95,
+      "risk_tier": "CRITICAL",
+      "status": "active",
+      "sources": [
+        "virustotal",
+        "abuseipdb",
+        "alienvault_otx"
+      ],
+      "tags": [
+        "mirai",
+        "brute-force",
+        "botnet",
+        "telnet"
+      ],
+      "enrichment_data": {
+        "virustotal": {
+          "status": "success",
+          "malicious": 15
+        },
+        "abuseipdb": {
+          "status": "success",
+          "score": 95
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-09-05T10:00:00+00:00",
+          "action": "created",
+          "risk_score": 95,
+          "confidence": 95
+        }
+      ]
+    }
+  }
+}

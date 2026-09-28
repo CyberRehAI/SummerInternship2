@@ -1,0 +1,94 @@
+---
+# ARZENS Week 06-07 Combined Assignment - Task 6: Ansible Roles
+# File: roles/common/tasks/main.yml
+# Description: Baseline system configuration: Timezone, NTP synchronization,
+#              automated security updates, and syslog configuration.
+
+- name: Update apt cache if older than 1 hour
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_os_family == "Debian"
+
+- name: Set system timezone to UTC
+  community.general.timezone:
+    name: "{{ system_timezone | default('UTC') }}"
+
+- name: Install baseline security and utility packages
+  ansible.builtin.package:
+    name:
+      - curl
+      - wget
+      - rsyslog
+      - chrony
+      - unattended-upgrades
+      - apt-listchanges
+      - ca-certificates
+    state: present
+
+- name: Configure chrony for accurate time synchronization
+  ansible.builtin.copy:
+    dest: /etc/chrony/chrony.conf
+    content: |
+      # ARZENS Hardened NTP Configuration
+      server 169.254.169.123 prefer iburst minpoll 4 maxpoll 4
+      pool 0.pool.ntp.org iburst
+      pool 1.pool.ntp.org iburst
+      driftfile /var/lib/chrony/chrony.drift
+      makestep 1.0 3
+      rtcsync
+      logdir /var/log/chrony
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart chrony
+  when: ansible_os_family == "Debian"
+
+- name: Ensure chrony service is enabled and running
+  ansible.builtin.service:
+    name: chrony
+    state: started
+    enabled: yes
+
+- name: Configure unattended-upgrades for automatic security updates
+  ansible.builtin.copy:
+    dest: /etc/apt/apt.conf.d/50unattended-upgrades
+    content: |
+      // ARZENS Hardened Automated Security Updates Configuration
+      Unattended-Upgrade::Allowed-Origins {
+          "${distro_id}:${distro_codename}-security";
+          "${distro_id}ESMApps:${distro_codename}-apps-security";
+          "${distro_id}ESM:${distro_codename}-infra-security";
+      };
+      Unattended-Upgrade::Package-Blacklist {
+      };
+      Unattended-Upgrade::AutoFixInterruptedDpkg "true";
+      Unattended-Upgrade::MinimalSteps "true";
+      Unattended-Upgrade::InstallOnShutdown "false";
+      Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";
+      Unattended-Upgrade::Remove-New-Unused-Dependencies "true";
+      Unattended-Upgrade::Remove-Unused-Dependencies "true";
+      Unattended-Upgrade::Automatic-Reboot "false";
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == "Debian"
+
+- name: Enable automatic daily security upgrades in apt periodic
+  ansible.builtin.copy:
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+    content: |
+      APT::Periodic::Update-Package-Lists "1";
+      APT::Periodic::Download-Upgradeable-Packages "1";
+      APT::Periodic::AutocleanInterval "7";
+      APT::Periodic::Unattended-Upgrade "1";
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == "Debian"
+
+- name: Ensure rsyslog service is enabled and running
+  ansible.builtin.service:
+    name: rsyslog
+    state: started
+    enabled: yes

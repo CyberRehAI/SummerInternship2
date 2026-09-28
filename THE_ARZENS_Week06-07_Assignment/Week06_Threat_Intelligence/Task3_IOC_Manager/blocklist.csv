@@ -1,0 +1,3 @@
+indicator,type,risk_score,confidence,status,expiration,tags
+185.220.101.5,ipv4,100,100,active,2026-10-13T14:57:45.688730+00:00,http;malicious ip;ioc;nextray;cyber security;robot;malicious;phishing;honeypot;blacklist
+193.106.191.162,ipv4,95,95,active,2026-10-13T19:00:00+00:00,mirai;brute-force;botnet;telnet

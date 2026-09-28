@@ -1,0 +1,19 @@
+# ARZENS Hardened Fail2Ban Configuration
+# Managed by Ansible - DO NOT EDIT MANUALLY
+[DEFAULT]
+bantime  = 3600
+findtime  = 600
+maxretry = 3
+banaction = ufw
+backend = systemd
+ignoreip = 127.0.0.1/8 ::1 10.0.0.0/16
+
+[sshd]
+enabled = true
+port    = {{ allowed_ssh_port | default(22) }}
+mode    = aggressive
+logpath = %(sshd_log)s
+backend = %(default_backend)s
+maxretry = 3
+bantime  = 7200
+findtime = 600

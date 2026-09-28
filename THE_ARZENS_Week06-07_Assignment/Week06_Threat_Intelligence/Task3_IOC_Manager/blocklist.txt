@@ -1,0 +1,8 @@
+# =====================================================================
+# ARZENS Perimeter Firewall Blocklist (High Confidence Threat Feed)
+# Generated: 2026-09-13 14:58:24 UTC
+# Criteria: Status=Active, Risk >= 50, Confidence >= 50
+# Total Indicators: 2
+# =====================================================================
+185.220.101.5/32  # Risk: 100, Conf: 100, Tags: [http,malicious ip,ioc]
+193.106.191.162/32  # Risk: 95, Conf: 95, Tags: [mirai,brute-force,botnet]

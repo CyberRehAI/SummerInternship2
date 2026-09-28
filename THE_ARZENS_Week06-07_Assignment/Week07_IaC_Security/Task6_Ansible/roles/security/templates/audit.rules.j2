@@ -1,0 +1,51 @@
+# ARZENS CIS Benchmark Aligned Audit Rules
+# Managed by Ansible - DO NOT EDIT MANUALLY
+# File: /etc/audit/rules.d/audit.rules
+
+# Delete all existing rules
+-D
+
+# Buffer Size
+-b 8192
+
+# Failure Mode: 1 = syslog, 2 = kernel panic
+-f 1
+
+# CIS 4.1.3: Record events that modify user/group information
+-w /etc/group -p wa -k identity
+-w /etc/passwd -p wa -k identity
+-w /etc/gshadow -p wa -k identity
+-w /etc/shadow -p wa -k identity
+-w /etc/security/opasswd -p wa -k identity
+
+# CIS 4.1.4: Record events that modify system network environment
+-a always,exit -F arch=b64 -S sethostname -S setdomainname -k system-locale
+-w /etc/issue -p wa -k system-locale
+-w /etc/issue.net -p wa -k system-locale
+-w /etc/hosts -p wa -k system-locale
+-w /etc/network -p wa -k system-locale
+
+# CIS 4.1.8: Record login and logout events
+-w /var/log/faillog -p wa -k logins
+-w /var/log/lastlog -p wa -k logins
+-w /var/log/tallylog -p wa -k logins
+
+# CIS 4.1.9: Record session initiation information
+-w /var/run/utmp -p wa -k session
+-w /var/log/wtmp -p wa -k session
+-w /var/log/btmp -p wa -k session
+
+# CIS 4.1.10: Record discretionary access control permission modification events
+-a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b64 -S chown -S fchown -S lchown -S fchownat -F auid>=1000 -F auid!=4294967295 -k perm_mod
+
+# CIS 4.1.11: Record unauthorized file access attempts
+-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
+-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
+
+# CIS 4.1.13: Record changes to sudoers
+-w /etc/sudoers -p wa -k actions
+-w /etc/sudoers.d/ -p wa -k actions
+
+# Make the audit configuration immutable until reboot
+-e 2

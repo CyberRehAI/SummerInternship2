@@ -1,0 +1,40 @@
+# IOC Manager & Automation Configuration
+# ARZENS Week 06-07 Combined Assignment - Task 3
+
+database:
+  filepath: "ioc_database.json"
+  auto_backup: true
+
+lifecycles:
+  default_ttl_days:
+    ipv4: 30
+    domain: 60
+    url: 30
+    hash: 180
+  auto_expire_on_check: true
+
+confidence_scoring:
+  source_diversity_weights:
+    three_sources: 35
+    two_sources: 25
+    one_source: 10
+  stability_bonus:
+    multi_engine_agreement: 25
+    otx_correlation: 15
+    clean_whitelist_agreement: 35
+  recency_max_days: 30
+  recency_freshness_window_days: 7
+  recency_max_points: 25
+
+blocklist_export:
+  default_output_file: "blocklist.txt"
+  default_format: "ip"  # Options: ip, suricata, csv
+  min_risk_score: 50
+  min_confidence: 50
+  active_only: true
+  suricata_sid_start: 1000001
+
+report_generation:
+  default_output_file: "weekly_report.html"
+  title: "ARZENS Cyber Threat Intelligence Weekly Executive Briefing"
+  organization: "ARZENS Cyber Defense Operations & CSIRT"

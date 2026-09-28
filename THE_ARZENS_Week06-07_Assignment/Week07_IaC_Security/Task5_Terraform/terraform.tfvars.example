@@ -1,0 +1,35 @@
+###############################################################################
+# ARZENS Week 06-07 Combined Assignment - Task 5: Secure Terraform Infrastructure
+# File: terraform.tfvars.example
+# Description: Example variable values for deployment. Copy to terraform.tfvars.
+# NOTE: Never commit production credentials or actual secret keys to version control.
+###############################################################################
+
+# AWS Deployment Region
+aws_region = "us-east-1"
+
+# Environment tier: prod | staging | dev
+environment = "prod"
+
+# Network CIDRs
+vpc_cidr            = "10.0.0.0/16"
+public_subnet_cidr  = "10.0.1.0/24"
+private_subnet_cidr = "10.0.2.0/24"
+
+# SSH Administrative Access CIDR
+# IMPORTANT: Replace with your specific corporate gateway or bastion public IP.
+# Example: "203.0.113.50/32". Never leave as 0.0.0.0/0.
+allowed_ssh_cidr = "198.51.100.25/32"
+
+# EC2 Compute Sizing
+instance_type = "t3.micro"
+
+# Globally unique S3 bucket name
+bucket_name = "arzens-devsecops-secure-storage-2026-prod"
+
+# SSH Key-Pair Public Key (Replace with your own id_ed25519.pub or id_rsa.pub)
+ssh_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGd8a+arzensDevSecOpsProductionKeyAdmin2026 admin@arzens.internal"
+
+# LocalStack Mock Testing Mode (Set to true for zero-cost offline local testing)
+use_localstack      = false
+localstack_endpoint = "http://localhost:4566"

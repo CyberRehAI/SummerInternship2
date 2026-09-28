@@ -1,0 +1,10 @@
+indicator,type,risk_score,risk_tier,vt_malicious,vt_suspicious,vt_total_engines,abuse_confidence_score,abuse_total_reports,abuse_whitelisted,otx_pulse_count,tags,enriched_at
+185.220.101.5,ipv4,100,CRITICAL,12,3,89,100,281,False,50,blacklist;cyber security;honeypot;http;ioc;malicious;malicious ip;nextray;phishing;robot,2026-09-13T14:53:38.981505+00:00
+8.8.8.8,ipv4,0,CLEAN,0,0,89,0,200,True,0,suspicious-udp,2026-09-13T14:52:02.599213+00:00
+194.26.29.42,ipv4,3,CLEAN,0,2,89,0,0,False,0,,2026-09-13T14:53:48.236322+00:00
+1.1.1.1,ipv4,0,CLEAN,0,0,89,0,28,True,0,suspicious-udp,2026-09-13T14:55:00.061235+00:00
+malware-traffic-analysis.net,domain,11,CLEAN,0,0,89,N/A,N/A,N/A,3,abuse contact;active threat;alerts;all octoseek;all search;analysis date;ap e06eke4;aurora stealer;av detections;bat,2026-09-13T14:55:01.395267+00:00
+facial-recognition.top,domain,0,CLEAN,N/A,N/A,N/A,N/A,N/A,N/A,0,,2026-09-13T14:55:16.179738+00:00
+ed01ef2632ff6357e08b1516f00717344e3e5eefbc7a78b1014fed8371cc4b4b,hash,0,CLEAN,N/A,N/A,N/A,N/A,N/A,N/A,0,,2026-09-13T14:55:30.816634+00:00
+c0202cf6aeab8437a60d3eb757ddff32,hash,0,CLEAN,N/A,N/A,N/A,N/A,N/A,N/A,0,,2026-09-13T14:55:45.890997+00:00
+http://testphp.vulnweb.com/login.php,url,0,CLEAN,0,0,90,N/A,N/A,N/A,0,,2026-09-13T14:56:00.796721+00:00

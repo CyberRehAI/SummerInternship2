@@ -1,0 +1,10 @@
+indicator,expected_type,description
+185.220.101.5,ipv4,Known Tor exit node and high-volume SSH/HTTP brute-forcer
+8.8.8.8,ipv4,Google Public DNS Resolver (Known Clean Whitelisted)
+194.26.29.42,ipv4,Malicious scanner and dictionary attack botnet IP
+1.1.1.1,ipv4,Cloudflare Anycast DNS (Known Clean Whitelisted)
+malware-traffic-analysis.net,domain,Security research and packet capture analysis domain
+facial-recognition.top,domain,Suspicious top-level domain flagged in phishing campaigns
+ed01ef2632ff6357e08b1516f00717344e3e5eefbc7a78b1014fed8371cc4b4b,hash,WannaCry Ransomware binary payload (SHA256)
+c0202cf6aeab8437a60d3eb757ddff32,hash,Emotet Banking Trojan dropper (MD5)
+http://testphp.vulnweb.com/login.php,url,Insecure web application authentication endpoint

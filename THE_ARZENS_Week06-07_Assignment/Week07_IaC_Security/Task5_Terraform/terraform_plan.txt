@@ -1,0 +1,534 @@
+data.aws_ami.amazon_linux_2023: Reading...
+data.aws_ami.amazon_linux_2023: Read complete after 1s [id=ami-0c101f26f147fa7fd]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_internet_gateway.igw will be created
+  + resource "aws_internet_gateway" "igw" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-igw"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+      + tags_all = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-igw"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_key_pair.auth_key will be created
+  + resource "aws_key_pair" "auth_key" {
+      + arn             = (known after apply)
+      + fingerprint     = (known after apply)
+      + id              = (known after apply)
+      + key_name        = "arzens-prod-keypair"
+      + key_name_prefix = (known after apply)
+      + key_pair_id     = (known after apply)
+      + key_type        = (known after apply)
+      + public_key      = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGd8a+arzensDevSecOpsProductionKeyAdmin2026 admin@arzens.internal"
+      + tags            = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-keypair"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+      + tags_all        = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-keypair"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+    }
+
+  # aws_route_table.private will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = []
+      + tags             = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-private-rt"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+      + tags_all         = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-private-rt"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + core_network_arn           = ""
+              + destination_prefix_list_id = ""
+              + egress_only_gateway_id     = ""
+              + gateway_id                 = (known after apply)
+              + ipv6_cidr_block            = ""
+              + local_gateway_id           = ""
+              + nat_gateway_id             = ""
+              + network_interface_id       = ""
+              + transit_gateway_id         = ""
+              + vpc_endpoint_id            = ""
+              + vpc_peering_connection_id  = ""
+            },
+        ]
+      + tags             = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-public-rt"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+      + tags_all         = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-public-rt"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.private will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_s3_bucket.secure_data will be created
+  + resource "aws_s3_bucket" "secure_data" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "arzens-devsecops-secure-storage-2026-prod"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "DataClass"    = "Confidential"
+          + "Environment"  = "prod"
+          + "Hardened"     = "True"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-devsecops-secure-storage-2026-prod"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+      + tags_all                    = {
+          + "DataClass"    = "Confidential"
+          + "Environment"  = "prod"
+          + "Hardened"     = "True"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-devsecops-secure-storage-2026-prod"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+    }
+
+  # aws_s3_bucket_policy.enforce_tls will be created
+  + resource "aws_s3_bucket_policy" "enforce_tls" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "s3:*"
+                      + Condition = {
+                          + Bool = {
+                              + "aws:SecureTransport" = "false"
+                            }
+                        }
+                      + Effect    = "Deny"
+                      + Principal = "*"
+                      + Resource  = [
+                          + (known after apply),
+                          + (known after apply),
+                        ]
+                      + Sid       = "EnforceTLSRequestsOnly"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+    }
+
+  # aws_s3_bucket_public_access_block.secure_data will be created
+  + resource "aws_s3_bucket_public_access_block" "secure_data" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.secure_data will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "secure_data" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + bucket_key_enabled = true
+
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm = "AES256"
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.secure_data will be created
+  + resource "aws_s3_bucket_versioning" "secure_data" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # aws_security_group.web_sg will be created
+  + resource "aws_security_group" "web_sg" {
+      + arn                    = (known after apply)
+      + description            = "Strictly filtered security group for web tier - CIS Benchmark aligned"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Outbound HTTPS for OS updates and trusted external API dependencies"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Outbound HTTP for package repository mirrors"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Outbound DNS resolution (UDP)"
+              + from_port        = 53
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "udp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 53
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP inbound for TLS redirection"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Secure HTTPS inbound traffic"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+          + {
+              + cidr_blocks      = [
+                  + "198.51.100.25/32",
+                ]
+              + description      = "Administrative SSH access restricted to authorized management subnet"
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 22
+            },
+        ]
+      + name                   = "arzens-prod-web-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-web-sg"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+      + tags_all               = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-web-sg"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.private will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + tags                                           = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-private-subnet-1b"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+          + "Tier"         = "Private"
+        }
+      + tags_all                                       = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-private-subnet-1b"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+          + "Tier"         = "Private"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + tags                                           = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-public-subnet-1a"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+          + "Tier"         = "Public"
+        }
+      + tags_all                                       = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-public-subnet-1a"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+          + "Tier"         = "Public"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                    = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-vpc"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+      + tags_all                             = {
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-vpc"
+          + "Project"      = "ARZENS-Week06-07"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+    }
+
+  # aws_instance.hardened_web will be created
+  + resource "aws_instance" "hardened_web" {
+      + ami                                  = "ami-0c101f26f147fa7fd"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = true
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t3.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "arzens-prod-keypair"
+      + monitoring                           = true
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Compliance"   = "CIS-Benchmark-Level-1"
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-hardened-web"
+          + "Project"      = "ARZENS-Week06-07"
+          + "Role"         = "SecurityHardenedWebServer"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+      + tags_all                             = {
+          + "Compliance"   = "CIS-Benchmark-Level-1"
+          + "Environment"  = "prod"
+          + "ManagedBy"    = "Terraform"
+          + "Name"         = "arzens-prod-hardened-web"
+          + "Project"      = "ARZENS-Week06-07"
+          + "Role"         = "SecurityHardenedWebServer"
+          + "SecurityTier" = "CIS-AWS-Hardened"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = "781702fdfecbf2eb5d564bbd72bb197825ecf91a"
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + metadata_options {
+          + http_endpoint               = "enabled"
+          + http_put_response_hop_limit = 1
+          + http_tokens                 = "required"
+          + instance_metadata_tags      = "enabled"
+        }
+
+      + root_block_device {
+          + delete_on_termination = true
+          + encrypted             = true
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + tags                  = {
+              + "Name" = "arzens-prod-web-root-ebs"
+            }
+          + throughput            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = 20
+          + volume_type           = "gp3"
+        }
+    }
+
+Plan: 15 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + ec2_instance_id    = (known after apply)
+  + ec2_private_ip     = (known after apply)
+  + ec2_public_ip      = (known after apply)
+  + imds_v2_enforced   = true
+  + private_subnet_id  = (known after apply)
+  + public_subnet_id   = (known after apply)
+  + s3_bucket_arn      = (known after apply)
+  + s3_bucket_id       = "arzens-devsecops-secure-storage-2026-prod"
+  + security_group_id  = (known after apply)
+  + vpc_cidr_block     = "10.0.0.0/16"
+  + vpc_id             = (known after apply)
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee that exactly these actions will be performed if "terraform apply" is subsequently run.

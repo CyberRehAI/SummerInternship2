@@ -1,0 +1,33 @@
+---
+# ARZENS Week 06-07 Combined Assignment - Task 6: Ansible Hardening & Compliance
+# File: site.yml
+# Description: Master deployment playbook applying baseline configuration,
+#              CIS security hardening, and compliance verification across all hosts.
+
+- name: Apply baseline configuration (Common Role)
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - role: common
+      tags:
+        - common
+        - baseline
+
+- name: Apply security hardening and intrusion prevention (Security Role)
+  hosts: webservers:security_bastions
+  become: true
+  roles:
+    - role: security
+      tags:
+        - security
+        - hardening
+
+- name: Execute automated CIS benchmark compliance verification (Compliance Role)
+  hosts: all
+  become: true
+  roles:
+    - role: compliance
+      tags:
+        - compliance
+        - audit

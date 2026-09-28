@@ -1,0 +1,166 @@
+---
+# ARZENS Week 06-07 Combined Assignment - Task 6: Ansible Roles
+# File: roles/security/tasks/main.yml
+# Description: Security Hardening: SSH bastion policy, UFW firewall, Fail2Ban, and Auditd.
+
+# =============================================================================
+# 1. SSH HARDENING (CIS Benchmark Section 5.2)
+# =============================================================================
+- name: Ensure SSH server package is installed
+  ansible.builtin.package:
+    name: openssh-server
+    state: present
+
+- name: Enforce SSH hardening - PermitRootLogin no
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '(?i)^#?\s*PermitRootLogin'
+    line: 'PermitRootLogin no'
+    state: present
+    validate: '/usr/sbin/sshd -t -f %s'
+  notify: restart sshd
+
+- name: Enforce SSH hardening - PasswordAuthentication no
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '(?i)^#?\s*PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+    state: present
+    validate: '/usr/sbin/sshd -t -f %s'
+  notify: restart sshd
+
+- name: Enforce SSH hardening - MaxAuthTries 3
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '(?i)^#?\s*MaxAuthTries'
+    line: 'MaxAuthTries 3'
+    state: present
+    validate: '/usr/sbin/sshd -t -f %s'
+  notify: restart sshd
+
+- name: Enforce SSH hardening - X11Forwarding no
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '(?i)^#?\s*X11Forwarding'
+    line: 'X11Forwarding no'
+    state: present
+    validate: '/usr/sbin/sshd -t -f %s'
+  notify: restart sshd
+
+- name: Enforce SSH hardening - Protocol 2 and PubkeyAuthentication
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '(?i)^#?\s*PubkeyAuthentication'
+    line: 'PubkeyAuthentication yes'
+    state: present
+    validate: '/usr/sbin/sshd -t -f %s'
+  notify: restart sshd
+
+- name: Enforce SSH idle timeout interval
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '(?i)^#?\s*ClientAliveInterval'
+    line: 'ClientAliveInterval 300'
+    state: present
+    validate: '/usr/sbin/sshd -t -f %s'
+  notify: restart sshd
+
+- name: Enforce SSH idle count maximum
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '(?i)^#?\s*ClientAliveCountMax'
+    line: 'ClientAliveCountMax 2'
+    state: present
+    validate: '/usr/sbin/sshd -t -f %s'
+  notify: restart sshd
+
+# =============================================================================
+# 2. FIREWALL CONFIGURATION (UFW / Netfilter - CIS Benchmark Section 3.5)
+# =============================================================================
+- name: Install UFW firewall
+  ansible.builtin.package:
+    name: ufw
+    state: present
+
+- name: Set UFW default incoming policy to DENY
+  community.general.ufw:
+    direction: incoming
+    default: deny
+
+- name: Set UFW default outgoing policy to ALLOW
+  community.general.ufw:
+    direction: outgoing
+    default: allow
+
+- name: Allow administrative SSH traffic (Port 22/tcp)
+  community.general.ufw:
+    rule: allow
+    port: "{{ allowed_ssh_port | default(22) }}"
+    proto: tcp
+    comment: "ARZENS Authorized SSH Ingress"
+
+- name: Allow HTTP web traffic (Port 80/tcp)
+  community.general.ufw:
+    rule: allow
+    port: '80'
+    proto: tcp
+    comment: "Web HTTP"
+
+- name: Allow HTTPS web traffic (Port 443/tcp)
+  community.general.ufw:
+    rule: allow
+    port: '443'
+    proto: tcp
+    comment: "Web HTTPS"
+
+- name: Enable UFW service and apply active state
+  community.general.ufw:
+    state: enabled
+
+# =============================================================================
+# 3. INTRUSION PREVENTION: Fail2Ban
+# =============================================================================
+- name: Install Fail2Ban intrusion prevention system
+  ansible.builtin.package:
+    name: fail2ban
+    state: present
+
+- name: Deploy hardened Fail2Ban jail.local configuration
+  ansible.builtin.template:
+    src: jail.local.j2
+    dest: /etc/fail2ban/jail.local
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart fail2ban
+
+- name: Ensure Fail2Ban service is enabled and active
+  ansible.builtin.service:
+    name: fail2ban
+    state: started
+    enabled: yes
+
+# =============================================================================
+# 4. AUDIT & COMPLIANCE LOGGING: Auditd (CIS Benchmark Section 4.1)
+# =============================================================================
+- name: Install auditd and audispd-plugins
+  ansible.builtin.package:
+    name:
+      - auditd
+      - audispd-plugins
+    state: present
+
+- name: Deploy hardened audit rules template
+  ansible.builtin.template:
+    src: audit.rules.j2
+    dest: /etc/audit/rules.d/audit.rules
+    owner: root
+    group: root
+    mode: '0640'
+  notify: restart auditd
+
+- name: Ensure auditd service is enabled and started
+  ansible.builtin.service:
+    name: auditd
+    state: started
+    enabled: yes

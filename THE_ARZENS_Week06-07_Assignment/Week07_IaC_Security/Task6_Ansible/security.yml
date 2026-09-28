@@ -1,0 +1,28 @@
+---
+# ARZENS Week 06-07 Combined Assignment - Task 6: Ansible Hardening & Compliance
+# File: security.yml
+# Description: Dedicated security hardening playbook for fast, targeted execution
+#              against servers requiring immediate lockdown (SSH, Firewall, Fail2Ban, Auditd).
+
+- name: Execute targeted security hardening
+  hosts: webservers:security_bastions
+  become: true
+  gather_facts: true
+  roles:
+    - role: security
+      tags:
+        - security
+        - hardening
+        - urgent-patch
+
+  post_tasks:
+    - name: Verify SSH service state post-hardening
+      ansible.builtin.service_facts:
+
+    - name: Assert SSH and UFW services are running
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['ssh.service'].state == 'running' or ansible_facts.services['sshd.service'].state == 'running'
+          - ansible_facts.services['ufw.service'].state == 'running'
+        fail_msg: "CRITICAL: Security daemon is not in running state after hardening!"
+        success_msg: "SUCCESS: All core security services are active and enforced."
